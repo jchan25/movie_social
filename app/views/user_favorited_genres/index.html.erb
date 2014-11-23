@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>User favorited genres</h1>
+</div>
+
+<p><a href="/user_favorited_genres/new" class="btn btn-primary">Add a New User Favorited Genre</a></p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Favorite Genre</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_favorited_genres.each do |user_favorited_genre| %>
+      <tr>
+        <td><%= user_favorited_genre.user.username %></td>
+        <td><%= user_favorited_genre.genre.genre_name %></td>
+        <td>
+          <a href="/user_favorited_genres/<%= user_favorited_genre.id %>" class="btn btn-primary">
+            <i class="fa fa-search-plus"></i>
+          </a>
+        </td>
+        <td>
+          <a href="/user_favorited_genres/<%= user_favorited_genre.id %>/edit" class="btn btn-warning">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+        <td>
+          <a href="/delete_user_favorited_genre/<%= user_favorited_genre.id %>" class="btn btn-danger">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

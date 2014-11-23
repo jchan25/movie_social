@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h1>Add Event Attendee</h1>
+</div>
+
+<% if @event_attendee.errors.any? %>
+  <% @event_attendee.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<form action="/create_event_attendee" class="form-horizontal">
+  <!-- Label and input for event_id -->
+  <div class="form-group">
+    <label for="event_id" class="col-sm-2 control-label">
+      Event
+    </label>
+    <div class="col-sm-10">
+      <%= select_tag(:event_id, options_from_collection_for_select(Event.all, :id, :id, @event_attendee.event_id), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for user_id -->
+  <div class="form-group">
+    <label for="user_id" class="col-sm-2 control-label">
+      User
+    </label>
+    <div class="col-sm-10">
+      <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :username, @event_attendee.user_id), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for status -->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label for="status">
+          <input type="checkbox" id="status" name="status" value="1" <%= "checked" if @event_attendee.status %>>
+          Status
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Create Event Attendee" class="btn btn-primary">
+    </div>
+  </div>
+</form>

@@ -1,0 +1,103 @@
+<div class="page-header">
+  <h1>Edit Movie #<%= @movie.id %></h1>
+</div>
+
+<% if @movie.errors.any? %>
+  <% @movie.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<form action="/update_movie/<%= @movie.id %>" class="form-horizontal">
+  <!-- Label and input for name -->
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">
+      Name
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @movie.name %>">
+    </div>
+  </div>
+
+  <!-- Label and input for image_url -->
+  <div class="form-group">
+    <label for="image_url" class="col-sm-2 control-label">
+      Image url
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="image_url" name="image_url" placeholder="Image url" class="form-control" value="<%= @movie.image_url %>">
+    </div>
+  </div>
+
+  <!-- Label and input for director -->
+  <div class="form-group">
+    <label for="director" class="col-sm-2 control-label">
+      Director
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="director" name="director" placeholder="Director" class="form-control" value="<%= @movie.director %>">
+    </div>
+  </div>
+
+  <!-- Label and input for actor -->
+  <div class="form-group">
+    <label for="actor" class="col-sm-2 control-label">
+      Actors
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="actor" name="actors" placeholder="Actor" class="form-control" value="<%= @movie.actors %>">
+    </div>
+  </div>
+
+
+
+
+  <!-- Label and input for genre -->
+  <div class="form-group">
+    <label for="genre" class="col-sm-2 control-label">
+      Genre
+    </label>
+    <div class="col-sm-10">
+        <%= select_tag(:genre_id, options_from_collection_for_select(Genre.all, :id, :genre_name, @movie.genre), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for synopsis -->
+  <div class="form-group">
+    <label for="synopsis" class="col-sm-2 control-label">
+      Synopsis
+    </label>
+    <div class="col-sm-10">
+      <textarea id="synopsis" name="synopsis" placeholder="Synopsis" class="form-control" rows="3"><%= @movie.synopsis %></textarea>
+    </div>
+  </div>
+
+  <!-- Label and input for duration -->
+  <div class="form-group">
+    <label for="duration" class="col-sm-2 control-label">
+      Duration
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="duration" name="duration" placeholder="Duration" class="form-control" value="<%= @movie.duration %>">
+    </div>
+  </div>
+
+  <!-- Label and input for release_date -->
+  <div class="form-group">
+    <label for="release_date" class="col-sm-2 control-label">
+      Release date
+    </label>
+    <div class="col-sm-10">
+      <input type="text" id="release_date" name="release_date" placeholder="Release date" class="form-control" value="<%= @movie.release_date %>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Update Movie" class="btn btn-primary">
+    </div>
+  </div>
+</form>

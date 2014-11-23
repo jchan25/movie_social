@@ -1,0 +1,41 @@
+<div class="page-header">
+  <h1>Add User Favorited Genre</h1>
+</div>
+
+<% if @user_favorited_genre.errors.any? %>
+  <% @user_favorited_genre.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<form action="/create_user_favorited_genre" class="form-horizontal">
+  <!-- Label and input for user_ID -->
+  <div class="form-group">
+    <label for="Username" class="col-sm-2 control-label">
+       Username
+    </label>
+    <div class="col-sm-10">
+     <%= select_tag(:user_ID, options_from_collection_for_select(User.all, :id, :username, @user_favorited_genre.user_ID), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for genre_ID -->
+  <div class="form-group">
+    <label for="Genre" class="col-sm-2 control-label">
+      Genre
+    </label>
+    <div class="col-sm-10">
+     <%= select_tag(:genre_ID, options_from_collection_for_select(Genre.all, :id, :genre_name, @user_favorited_genre.genre_ID), :class => "form-control") %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Create User Favorited Genre" class="btn btn-primary">
+    </div>
+  </div>
+</form>

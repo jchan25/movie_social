@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Edit User Favorited Movie #<%= @user_favorited_movie.id %></h1>
+</div>
+
+<% if @user_favorited_movie.errors.any? %>
+  <% @user_favorited_movie.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<form action="/update_user_favorited_movie/<%= @user_favorited_movie.id %>" class="form-horizontal">
+  <!-- Label and input for user_ID -->
+  <div class="form-group">
+    <label for="user_ID" class="col-sm-2 control-label">
+      Username
+    </label>
+    <div class="col-sm-10">
+      <%= select_tag(:user_ID, options_from_collection_for_select(User.all, :id, :username, @user_favorited_movie.user_ID), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for movie_ID -->
+  <div class="form-group">
+    <label for="movie_ID" class="col-sm-2 control-label">
+      Movie name
+    </label>
+    <div class="col-sm-10">
+     <%= select_tag(:movie_ID, options_from_collection_for_select(Movie.all, :id, :name, @user_favorited_movie.movie_ID), :class => "form-control") %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Update User Favorited Movie" class="btn btn-primary">
+    </div>
+  </div>
+</form>

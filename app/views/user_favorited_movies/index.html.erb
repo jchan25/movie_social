@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>User favorited movies</h1>
+</div>
+
+<p><a href="/user_favorited_movies/new" class="btn btn-primary">Add a New User Favorited Movie</a></p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Movie Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_favorited_movies.each do |user_favorited_movie| %>
+      <tr>
+        <td><%= user_favorited_movie.user.username %></td>
+        <td><%= user_favorited_movie.movie.name %></td>
+        <td>
+          <a href="/user_favorited_movies/<%= user_favorited_movie.id %>" class="btn btn-primary">
+            <i class="fa fa-search-plus"></i>
+          </a>
+        </td>
+        <td>
+          <a href="/user_favorited_movies/<%= user_favorited_movie.id %>/edit" class="btn btn-warning">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+        <td>
+          <a href="/delete_user_favorited_movie/<%= user_favorited_movie.id %>" class="btn btn-danger">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

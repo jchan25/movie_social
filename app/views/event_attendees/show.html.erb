@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>Event Attendee #<%= @event_attendee.id %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Event</dt>
+  <dd><%= @event_attendee.event.id %></dd>
+
+  <dt>User</dt>
+  <dd><%= @event_attendee.user.username %></dd>
+
+  <dt>Status</dt>
+  <dd><%= @event_attendee.status %></dd>
+
+</dl>

@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Event #<%= @event.id %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>User id</dt>
+  <dd><%= @event.user.username %></dd>
+
+  <dt>Friends invited</dt>
+
+  <dd>
+    <% EventAttendee.where({ :event_id => @event.id }).each do |attendee| %>
+        <li><%= attendee.user.username %> (<%= attendee.status %>) </li>
+      <% end %>
+  </dd>
+
+  <dt>Theater address</dt>
+  <dd><%= @event.theater_address %></dd>
+
+  <dt>Movie</dt>
+  <dd><%= @event.movie.name %></dd>
+
+  <dt>Datetime</dt>
+  <dd><%= @event.datetime %></dd>
+
+</dl>
