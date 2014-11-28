@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  get("/", { :controller => "movies", :action => "index"})
+  devise_for :users
+  root("dashboards#index")
+
+  get("/", { :controller => "dashboards", :action => "index"})
   # Routes for the Event_attendee resource:
   # CREATE
   get('/event_attendees/new', { :controller => 'event_attendees', :action => 'new' })
