@@ -17,9 +17,9 @@ class UserFavoritedMoviesController < ApplicationController
     @user_favorited_movie.movie_ID = params[:movie_ID]
 
     if @user_favorited_movie.save
-      redirect_to "/user_favorited_movies", :notice => "User favorited movie created successfully."
+      redirect_to "/", :notice => "User favorited movie created successfully."
     else
-      render 'new'
+      redirect_to "/", :notice => "User already favorited movie."
     end
   end
 

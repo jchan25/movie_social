@@ -1,9 +1,15 @@
 class DashboardsController < ApplicationController
 
   def index
-    @movies = Movie.all
-    @user_favorited_movies = UserFavoritedMovie.all
-    @events = Event.all
+    @own_movies = Movie.all
+
+    if current_user.present?
+    @own_favorited_movies = current_user.user_favorited_movies
+    else
+    end
+
+
+    @own_events = Event.all
   end
 
 end

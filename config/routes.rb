@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :views
+  devise_for :users, :controllers => {registrations: "registrations"}
   root("dashboards#index")
+
 
   get("/", { :controller => "dashboards", :action => "index"})
   # Routes for the Event_attendee resource:

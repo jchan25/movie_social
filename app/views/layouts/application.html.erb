@@ -46,12 +46,12 @@
         <li><a href="/user_favorited_genres">User Favorited Genres</a></li>
         <li><a href="/user_favorited_movies">User Favorited Movies</a></li>
         <li><a href="/movies">Movies</a></li>
-        <li><a href="#">About</a></li>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <% if false %>
-          <li><a href="/users/edit">Oscar the Grouch</a></li>
+        <% if current_user.present? %>
+          <li><a href="/users/edit">Settings</a></li>
           <li><a href="/users/sign_out" data-method="delete">Sign out</a></li>
         <% else %>
           <li><a href="/users/sign_up">Sign up</a></li>

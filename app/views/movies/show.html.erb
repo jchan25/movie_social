@@ -25,4 +25,12 @@
   <dt>Release date</dt>
   <dd><%= @movie.release_date %></dd>
 
+  <dt>Users who favorited</dt>
+  <dd>
+    <% @movie.user_favorited_movies.each do |favorite| %>
+        <%= favorite.user.username %>
+    <% end %>
+
+
+  </dd>
 </dl>
