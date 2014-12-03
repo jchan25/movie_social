@@ -5,5 +5,6 @@ class UserFavoritedMovie < ActiveRecord::Base
  validates :movie_ID, :presence => true
  validates :user_ID, :presence => true
 
+ validates_uniqueness_of :user_ID, scope: :movie_ID
  #validates :user_ID :uniqueness => true
 end

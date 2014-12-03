@@ -14,5 +14,6 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true
 
   has_many(:user_favorited_movies, {:class_name => "UserFavoritedMovie", :foreign_key => "user_id"})
+  has_many(:user_favorited_genres, {:class_name => "UserFavoritedGenre", :foreign_key => "user_ID"})
   has_many(:events, {:class_name => "Event", :foreign_key => "event_id"})
 end
