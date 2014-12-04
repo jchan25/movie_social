@@ -8,9 +8,11 @@ class DashboardsController < ApplicationController
     else
     end
 
+    if current_user.present?
     @favorite_genres = current_user.user_favorited_genres
+    else
+    end
 
-    @own_events = Event.all
   end
 
 end

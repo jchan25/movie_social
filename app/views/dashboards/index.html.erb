@@ -1,148 +1,130 @@
 <div class="page-header">
-  <h1>Movies</h1>
-</div>
+
 
 <% if current_user.present? %>
-<% else %>
-<p><a href="/movies/new" class="btn btn-primary">Add a New Movie</a></p>
-<% end %>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Director</th>
-      <th>Genre</th>
-      <th>Release date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-
-  <tbody>
+ <h1>Movies</h1>
+  <div class="row isotope-container">
     <% @own_movies.each do |movie| %>
-    <%  @favorite_genres.each do |favorite_genre| %>
-        <% if   movie.genre_id == favorite_genre.genre_ID %>
-        <tr>
-          <td> <img src="<%= movie.image_url %>" alt="image" height="150"> </td>
-          <td><%= movie.name %></td>
-          <td><%= movie.director %></td>
-          <td><%= movie.genre.genre_name %></td>
-          <td><%= movie.release_date %></td>
-          <td>
-            <a href="/movies/<%= movie.id %>" class="btn btn-primary">
+
+    <% @favorite_genres.each do |favoritegenre| %>
+
+    <% if favoritegenre.genre_ID == movie.genre_id %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= movie.name %></h3>
+        </div>
+        <div class="panel-body">
+          <dl>
+            <dd><img src="<%= movie.image_url %>" alt="<%= movie.name %>" height="300" </dd>
+
+          </dl>
+          <div >
+
+            <table>
+              <td>
+                <a href="/movies/<%= movie.id %>" class="btn btn-primary">
+                  <i class="fa fa-search-plus"></i>
+                </a>
+              </td>
+              <td>
+
+              </td>
+              <td>
+                <form action="/create_user_favorited_movie">
+                  <input type="hidden" id: "movie_ID" placeholder="movie_ID" name="movie_ID" class="form-control" value="<%= movie.id %>">
+                  <input type="hidden" id: "user_ID" placeholder="user_ID" name="user_ID" class="form-control" value="<%= current_user.id %>">
+
+                  <input type="submit" value="Favorite" placeholder="test" class="btn btn-primary">
+                </form>
+              </td>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% else %>
+
+    <% end %>
+    <% end %>
+
+
+    <% end %>
+  </div>
+
+  <h1>My Favorites</h1>
+
+<div class="row isotope-container">
+  <% @own_favorited_movies.each do |myfavorite| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= myfavorite.movie.name %></h3>
+      </div>
+      <div class="panel-body">
+        <dl>
+          <dd><img src="<%= myfavorite.movie.image_url %>" alt="<%= myfavorite.movie.name %>" height="300" </dd>
+
+        </dl>
+        <div >
+
+          <div class="btn-group btn-group-justified">
+            <a href="/movies/<%= myfavorite.movie.id %>" class="btn btn-primary">
               <i class="fa fa-search-plus"></i>
             </a>
-          </td>
-        <td>
-          <form action="/create_user_favorited_movie">
-            <input type="hidden" id: "movie_ID" placeholder="movie_ID" name="movie_ID" class="form-control" value="<%= movie.id %>">
-            <input type="hidden" id: "user_ID" placeholder="user_ID" name="user_ID" class="form-control" value="<%= current_user.id %>">
-
-            <input type="submit" value="Favorite" placeholder="test" class="btn btn-primary">
-          </form>
-        </td>
-        <%else %>
-        <% end %>
-    <% end %>
 
 
+            <a href="/delete_user_favorited_movie/<%= myfavorite.id %>" class="btn btn-danger">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </div>
+      </div>
+    </div>
+    </div>
+  <% end %>
+</div>
+</div>
+<!-- JavaScript for Isotope layout and quicksearch -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+<script>
+  $(function() {
+    // quick search regex
+    var qsRegex;
 
-<% if current_user.present? %>
-<h1>My Favorites</h1>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-       <% if current_user.present? %>
-        <%else %>
-           <th>Username</th>
-        <% end %>
+    // init Isotope
+    var $container = $('.isotope-container').isotope({
+      itemSelector: '.isotope-item',
+      layoutMode: 'masonry',
+      filter: function() {
+        return qsRegex ? $(this).text().match( qsRegex ) : true;
+      }
+    });
 
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    // use value of search field to filter
+    var $quicksearch = $('#quicksearch').keyup( debounce( function() {
+      qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+      $container.isotope();
+    }, 200 ) );
 
-  <tbody>
-    <% @own_favorited_movies.each do |own_favorited_movie| %>
-      <tr>
-        <td> <img src="<%= own_favorited_movie.movie.image_url %>" height="150px"> </td>
-        <td><%= own_favorited_movie.movie.name %> </td>
-        <% if current_user.present? %>
-        <%else %>
-           <td><%= own_favorited_movie.user.username %></td>
-        <% end %>
+  });
 
-        <td>
-          <a href="/movies/<%= own_favorited_movie.movie_ID %>" class="btn btn-primary">
-            <i class="fa fa-search-plus"></i>
-          </a>
-        </td>
-
-        <td>
-          <a href="/delete_user_favorited_movie/<%= own_favorited_movie.id %>" class="btn btn-danger">
-            <i class="fa fa-trash-o"></i>
-          </a>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+  // debounce so filtering doesn't happen every millisecond
+  function debounce( fn, threshold ) {
+    var timeout;
+    return function debounced() {
+      if ( timeout ) {
+        clearTimeout( timeout );
+      }
+      function delayed() {
+        fn();
+        timeout = null;
+      }
+      timeout = setTimeout( delayed, threshold || 100 );
+    }
+  }
+</script>
 <% else %>
+<h1> Please log in. </h1>
 <% end %>
-
-<!-- <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Name</th>
-      <th>Theater address</th>
-      <th>Movie</th>
-      <th>Date and time</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @own_events.each do |event| %>
-      <tr>
-        <td><%= event.user.username %></td>
-        <td><%= event.name %></td>
-        <td><%= event.theater_address %></td>
-        <td><%= event.movie.name %></td>
-        <td><%= event.datetime %></td>
-        <td>
-          <a href="/events/<%= event.id %>" class="btn btn-primary">
-            <i class="fa fa-search-plus"></i>
-          </a>
-        </td>
-        <td>
-          <a href="/events/<%= event.id %>/edit" class="btn btn-warning">
-            <i class="fa fa-edit"></i>
-          </a>
-        </td>
-        <td>
-          <a href="/delete_event/<%= event.id %>" class="btn btn-danger">
-            <i class="fa fa-trash-o"></i>
-          </a>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
-
-
