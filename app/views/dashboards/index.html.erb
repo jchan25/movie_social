@@ -1,3 +1,9 @@
+<style type="text/css">
+  form {
+    display: inline-block;
+  }
+</style>
+
 <div class="page-header">
 
 
@@ -21,24 +27,20 @@
           </dl>
           <div >
 
-            <table>
-              <td>
+            <!-- <div class="btn-group" role="group"> -->
+
                 <a href="/movies/<%= movie.id %>" class="btn btn-primary">
                   <i class="fa fa-search-plus"></i>
                 </a>
-              </td>
-              <td>
 
-              </td>
-              <td>
                 <form action="/create_user_favorited_movie">
                   <input type="hidden" id: "movie_ID" placeholder="movie_ID" name="movie_ID" class="form-control" value="<%= movie.id %>">
                   <input type="hidden" id: "user_ID" placeholder="user_ID" name="user_ID" class="form-control" value="<%= current_user.id %>">
-
                   <input type="submit" value="Favorite" placeholder="test" class="btn btn-primary">
                 </form>
-              </td>
-            </table>
+
+
+            <!-- </div> -->
           </div>
         </div>
       </div>
