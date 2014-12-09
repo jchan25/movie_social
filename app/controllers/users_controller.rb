@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     @user.profile_pic_url = params[:profile_pic_url]
 
     if @user.save
-      redirect_to "/users", :notice => "User updated successfully."
+      redirect_to "/", :notice => "User updated successfully."
     else
       render 'edit'
     end

@@ -39,12 +39,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/event_attendees">Event Attendees</a></li>
-        <li><a href="/events">Events</a></li>
         <li><a href="/users">Users</a></li>
         <li><a href="/genres">Genres</a></li>
+
+        <% if current_user.present? && current_user.admin? %>
+
         <li><a href="/user_favorited_genres">User Favorited Genres</a></li>
         <li><a href="/user_favorited_movies">User Favorited Movies</a></li>
+
+        <% end %>
+
         <li><a href="/movies">Movies</a></li>
 
       </ul>

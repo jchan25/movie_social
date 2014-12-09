@@ -1,5 +1,22 @@
 Rails.application.routes.draw do
 
+  # Routes for the Template resource:
+  # CREATE
+  get('/templates/new', { :controller => 'templates', :action => 'new' })
+  get('/create_template', { :controller => 'templates', :action => 'create' })
+
+  # READ
+  get('/templates', { :controller => 'templates', :action => 'index' })
+  get('/templates/:id', { :controller => 'templates', :action => 'show' })
+
+  # UPDATE
+  get('/templates/:id/edit', { :controller => 'templates', :action => 'edit' })
+  get('/update_template/:id', { :controller => 'templates', :action => 'update' })
+
+  # DELETE
+  get('/delete_template/:id', { :controller => 'templates', :action => 'destroy' })
+  #------------------------------
+
   devise_for :views
   devise_for :users, :controllers => {registrations: "registrations"}
   root("dashboards#index")

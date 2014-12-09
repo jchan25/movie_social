@@ -28,7 +28,9 @@
   <dt>Users who favorited</dt>
   <dd>
     <% @movie.user_favorited_movies.each do |favorite| %>
-        <%= favorite.user.username %>
+    <li>
+      <ul><%= favorite.user.username %></ul>
+    </li>
     <% end %>
 
 
